@@ -3,25 +3,13 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 # Gmail credentials (use App Password)
-GMAIL_USER = "naneja@gmail.com"
+GMAIL_USER = "your@gmail.com"
 
 #set using https://myaccount.google.com/apppasswords
 GMAIL_PASSWORD = "your-password-or-app-password"
 
-# Email details
-TO_EMAIL = "naneja@gmail.com"
 
-SUBJECT = "Test Email from Python"
-
-BODY = """Hello,
-
-This is a test email sent using Python!
-
-
-Best regards,
-Your Python Script"""
-
-def send_email():
+def send_email(TO_EMAIL, SUBJECT, BODY):
   try:
     # Set up the email message
     msg = MIMEMultipart()
@@ -40,5 +28,18 @@ def send_email():
   except Exception as e:
     print(f"Error: {e}")
 
-# Send the email
-send_email()
+
+if __name__ == "__main__":
+  # Email details
+  TO_EMAIL = "your@gmail.com"
+  SUBJECT = "Test Email from Python"
+
+  BODY = """Hello,
+
+  This is a test email sent using Python!
+
+  Best regards,
+  Your Python Script"""
+
+  # Send the email
+  send_email(TO_EMAIL, SUBJECT, BODY)
