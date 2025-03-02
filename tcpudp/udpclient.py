@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 #UDP Client: udpclient.py
 from socket import *
 

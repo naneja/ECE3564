@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 from socket import *
 
 clientSocket = socket(AF_INET, SOCK_STREAM)

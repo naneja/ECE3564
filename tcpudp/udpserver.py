@@ -17,5 +17,5 @@ while True:
   print(msg)
 
   modifiedMessage = message.decode().upper()
-  serverSocket.sendto(modifiedMessage.encode(), clientAddress)#!/usr/bin/env python
+  serverSocket.sendto(modifiedMessage.encode(), clientAddress)
 
