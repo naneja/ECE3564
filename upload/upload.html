@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Responsive File Upload with Preview & Progress</title>
+  <title>Responsive File Upload</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body {
@@ -11,7 +11,6 @@
       padding: 20px;
       background: #f5f5f5;
     }
-
     .container {
       max-width: 600px;
       margin: auto;
@@ -20,11 +19,9 @@
       border-radius: 12px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-
     h2 {
       text-align: center;
     }
-
     .drop-area {
       border: 2px dashed #007BFF;
       padding: 30px;
@@ -34,24 +31,19 @@
       border-radius: 10px;
       transition: background 0.3s;
     }
-
     .drop-area.dragover {
       background: #e8f0ff;
     }
-
     input[type="file"] {
       display: none;
     }
-
     .preview {
       margin-top: 20px;
     }
-
     .file-item {
       margin-bottom: 10px;
       font-size: 14px;
     }
-
     .file-thumb {
       max-width: 100px;
       max-height: 100px;
@@ -59,7 +51,6 @@
       margin-right: 10px;
       vertical-align: middle;
     }
-
     .progress-bar {
       width: 100%;
       height: 20px;
@@ -68,14 +59,12 @@
       overflow: hidden;
       margin-top: 10px;
     }
-
     .progress-bar-fill {
       height: 100%;
       width: 0%;
       background: #28a745;
       transition: width 0.2s;
     }
-
     button {
       width: 100%;
       padding: 10px;
@@ -87,15 +76,8 @@
       cursor: pointer;
       margin-top: 20px;
     }
-
     button:hover {
       background: #0056b3;
-    }
-
-    @media (max-width: 600px) {
-      .drop-area {
-        padding: 20px;
-      }
     }
   </style>
 </head>
@@ -107,7 +89,7 @@
       Drag & Drop files here or click to select<br>
       <small>(Images, Videos, PDFs, Text files)</small>
     </label>
-    <input type="file" id="fileInput" name="files[]" multiple accept=".jpg,.jpeg,.png,.gif,.mp4,.mov,.avi,.pdf,.txt">
+    <input type="file" id="fileInput" multiple accept=".jpg,.jpeg,.png,.gif,.mp4,.mov,.avi,.pdf,.txt">
     <div class="preview" id="filePreview"></div>
     <div class="progress-bar">
       <div class="progress-bar-fill" id="progressBar"></div>
@@ -123,19 +105,22 @@
   const progressBar = document.getElementById('progressBar');
   const uploadForm = document.getElementById('uploadForm');
 
+  let selectedFiles = [];
+
   function updatePreview(files) {
     filePreview.innerHTML = '';
-    Array.from(files).forEach(file => {
-      const fileType = file.type;
+    selectedFiles = Array.from(files); // Store files for upload
+
+    selectedFiles.forEach(file => {
       const item = document.createElement('div');
       item.className = 'file-item';
 
-      if (fileType.startsWith('image/')) {
+      if (file.type.startsWith('image/')) {
         const img = document.createElement('img');
         img.className = 'file-thumb';
         img.src = URL.createObjectURL(file);
         item.appendChild(img);
-      } else if (fileType.startsWith('video/')) {
+      } else if (file.type.startsWith('video/')) {
         const video = document.createElement('video');
         video.className = 'file-thumb';
         video.src = URL.createObjectURL(file);
@@ -170,8 +155,8 @@
   });
 
   dropArea.addEventListener('drop', e => {
-    fileInput.files = e.dataTransfer.files;
-    updatePreview(e.dataTransfer.files);
+    const files = e.dataTransfer.files;
+    updatePreview(files);
   });
 
   dropArea.addEventListener('click', () => {
@@ -180,14 +165,15 @@
 
   uploadForm.addEventListener('submit', e => {
     e.preventDefault();
-    const formData = new FormData();
-    const files = fileInput.files;
-
-    if (!files.length) return alert("Please select files to upload.");
-
-    for (let i = 0; i < files.length; i++) {
-      formData.append("files[]", files[i]);
+    if (!selectedFiles.length) {
+      alert("Please select files to upload.");
+      return;
     }
+
+    const formData = new FormData();
+    selectedFiles.forEach(file => {
+      formData.append("files[]", file);
+    });
 
     const xhr = new XMLHttpRequest();
     xhr.open("POST", "process_upload.php", true);
@@ -205,6 +191,7 @@
         progressBar.style.width = "0%";
         filePreview.innerHTML = '';
         fileInput.value = '';
+        selectedFiles = [];
       } else {
         alert("Upload failed.");
       }
