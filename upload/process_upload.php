@@ -1,16 +1,8 @@
 <?php
-$allowed_extensions = [
-    'jpg', 'jpeg', 'png', 'mp4', 'pdf', 'txt'
-];
-
-$upload_dir = "uploads/";
-
-if (!file_exists($upload_dir)) {
-    mkdir($upload_dir, 0777, true);
-}
+$allowed_extensions = ['jpg', 'jpeg', 'png', 'mp4', 'pdf', 'txt'];
 
 function handle_upload($file, $label) {
-    global $allowed_extensions, $upload_dir;
+    global $allowed_extensions;
 
     if (!isset($file) || $file['error'] === UPLOAD_ERR_NO_FILE) {
         echo "$label: No file uploaded.<br>";
@@ -31,7 +23,7 @@ function handle_upload($file, $label) {
     }
 
     $safe_name = uniqid() . "_" . $filename;
-    $target_path = $upload_dir . $safe_name;
+    $target_path = __DIR__ . "/" . $safe_name;
 
     if (move_uploaded_file($file['tmp_name'], $target_path)) {
         echo "$label: File uploaded successfully as $safe_name<br>";
