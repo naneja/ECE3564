@@ -2,50 +2,50 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Upload Two Files</title>
+  <title>Upload 2 Files</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body {
       font-family: Arial, sans-serif;
+      background: #f1f1f1;
       padding: 20px;
-      background: #f9f9f9;
     }
     .container {
       max-width: 400px;
       margin: auto;
       background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
     }
     h2 {
-      text-align: center;
       margin-bottom: 20px;
     }
     label {
       display: block;
-      margin-bottom: 5px;
+      margin-bottom: 6px;
       font-weight: bold;
+      text-align: left;
     }
     input[type="file"] {
-      display: block;
-      margin-bottom: 20px;
       width: 100%;
+      margin-bottom: 20px;
     }
     button {
       width: 100%;
-      padding: 10px;
-      background: #007BFF;
+      padding: 12px;
+      font-size: 16px;
+      background-color: #007BFF;
       color: #fff;
       border: none;
-      font-size: 16px;
-      border-radius: 5px;
+      border-radius: 8px;
       cursor: pointer;
     }
     button:hover {
-      background: #0056b3;
+      background-color: #0056b3;
     }
-    @media (max-width: 480px) {
+    @media (max-width: 500px) {
       .container {
         padding: 15px;
       }
@@ -54,14 +54,14 @@
 </head>
 <body>
   <div class="container">
-    <h2>Upload Files</h2>
+    <h2>Upload 2 Files</h2>
     <form action="process_upload.php" method="post" enctype="multipart/form-data">
-      <label for="file1">Select File 1:</label>
+      <label for="file1">Choose File 1:</label>
       <input type="file" name="file1" id="file1" accept=".jpg,.jpeg,.png,.mp4,.pdf,.txt">
-
-      <label for="file2">Select File 2:</label>
+      
+      <label for="file2">Choose File 2:</label>
       <input type="file" name="file2" id="file2" accept=".jpg,.jpeg,.png,.mp4,.pdf,.txt">
-
+      
       <button type="submit">Upload</button>
     </form>
   </div>
