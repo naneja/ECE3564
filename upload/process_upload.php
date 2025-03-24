@@ -2,7 +2,7 @@
 $allowed_extensions = ['jpg', 'jpeg', 'png', 'mp4', 'pdf', 'txt'];
 
 // Upload directory relative to this script
-$upload_dir = __DIR__ . '/uploads/';
+$upload_dir = __DIR__ . '/upload/';
 
 // Ensure upload directory exists
 if (!is_dir($upload_dir)) {
