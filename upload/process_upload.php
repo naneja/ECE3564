@@ -28,7 +28,7 @@ function handle_upload($file, $label) {
     if (move_uploaded_file($file['tmp_name'], $target_path)) {
         echo "$label: File uploaded successfully as $safe_name<br>";
     } else {
-        echo "$label: Failed to move uploaded file.<br>";
+        echo "$label: Failed to move uploaded file<br>";
     }
 }
 
